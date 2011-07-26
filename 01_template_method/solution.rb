@@ -1,4 +1,4 @@
-class PropertySeach < Search
+class PropertySearch < Search
   field :keywords,    String
   field :city_id,     Integer
   field :state_id,    Integer
