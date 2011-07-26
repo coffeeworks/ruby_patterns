@@ -1,0 +1,16 @@
+<!--
+XML based language
+http://radiantcms.org/
+https://github.com/jlong/radius
+-->
+
+<h2>Site Map</h2>
+
+<div id="sitemap">
+ <ul>
+   <r:find url="/">
+     <r:snippet name="sitemap" />
+   </r:find>
+ </ul>
+</div>
+

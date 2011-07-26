@@ -5,6 +5,5 @@ pattern: Both patterns allow us to concentrate the decision about which variatio
 are using in one or a few places. With the Template Method pattern, we make our
 decision when we pick our concrete subclass. In the Strategy pattern, we make our
 decision by selecting a strategy class at runtime.*
-
 (Design Patterns in Ruby)
 

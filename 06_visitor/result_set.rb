@@ -6,18 +6,18 @@ module ResultSet
       @new_status = new_status
       super
     end
-    
+
     def apply(item)
-      item.update(:status => @new_status)   
+      item.update(:status => @new_status)
     end
   end
-  
+
   class Visitor
     def initialize
       @count_success = 0
       @count_failed = 0
     end
-    
+
     def visit(item)
       if self.apply(item)
         @count_success += 1
@@ -25,7 +25,7 @@ module ResultSet
         @count_failed += 1
       end
     end
-    
+
     def results
       [@count_failed, @count_success]
     end
@@ -36,15 +36,15 @@ module ResultSet
       @klass = klass
       @ids = ids
     end
-    
+
     def accept(visitor)
       self.items.each do |item|
         visitor.visit(item)
       end
     end
-    
+
     def items
-      klass.all(:id => @ids)
+      @klass.all(:id => @ids)
     end
   end
 end
@@ -53,7 +53,11 @@ end
 # ..
 def mass_action
   @collection = ResultSet::Collection(Article, params[:ids])
-  @new_status = Status.category_status(Article, params[:status_id])
+  @new_status = Status.get(params[:status_id])
   visitor = ResultSet::ChangeStatusVisitor(@new_status)
   @results = @collection.accept(visitor)
 end
+
+# DISCLAIMER: Not using double dispatching
+# BONUS: You get one pattern for free: The visitor here uses the Command pattern
+
